@@ -31,6 +31,7 @@ We introduce **VCR-Bench**, a novel benchmark designed to comprehensively evalua
 <p align="center">
     <img src="./figs/main.png" width="100%" height="100%">
 </p>
+
 ## 🔮 Evaluation
 📍 **Data Preparation**:
 
