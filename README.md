@@ -4,14 +4,14 @@
 
 ![VideoQA](https://img.shields.io/badge/Task-VideoQA-red) 
 ![Multi-Modal](https://img.shields.io/badge/Task-Multi--Modal-red) 
-![Video-MME](https://img.shields.io/badge/Dataset-V2P--Bench-blue)  
+![Video-MME](https://img.shields.io/badge/Dataset-VCR--Bench-blue)  
 ![Gemini](https://img.shields.io/badge/Model-Gemini-green)
 ![GPT-4o](https://img.shields.io/badge/Model-GPT--4o-green)
 ![LLaVA-Video](https://img.shields.io/badge/Model-%20LLaVA--Video-green
 )
 
 
-<font size=7><div align='center' >  [[📖 arXiv Paper]()] [[📊 Dataset]()]  [[🏆 Leaderboard(TBD)]()]  </div></font>
+<font size=7><div align='center' >  [[🌐 Homepage](https://vcr-bench.vercel.app/)][[📖 arXiv Paper]()] [[📊 Dataset](https://huggingface.co/datasets/VLM-Reasoning/VCR-Bench)]  [[🏆 Leaderboard](https://vcr-bench.vercel.app/#leaderboard)]  </div></font>
 
 ---
 
@@ -28,6 +28,9 @@
 
 We introduce **VCR-Bench**, a novel benchmark designed to comprehensively evaluate LVLMs' **V**ideo **C**hain-of-Thought **R**easoning capabilities. VCR-Bench comprises 859 videos spanning a variety of video content and durations, along with 1,034 high-quality question-answer pairs. Each pair is manually annotated with a stepwise CoT rationale, where every step is tagged to indicate its association with the perception or reasoning capabilities. Furthermore, we design seven distinct task dimensions and propose the CoT score to assess the entire CoT process based on the stepwise tagged CoT rationals.
 
+<p align="center">
+    <img src="./figs/main.png" width="100%" height="100%">
+</p>
 ## 🔮 Evaluation
 📍 **Data Preparation**:
 
@@ -62,4 +65,12 @@ python eval_code/cau_total.py output.json
 Calculate the accuracy:
 ```
 python eval_code/cau_acc.py output.json
+```
+
+
+## ✒️ Citation
+
+If you find our work helpful for your research, please consider giving a star ⭐ and citation 📝
+```bibtex
+
 ```
