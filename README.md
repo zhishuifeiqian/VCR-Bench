@@ -11,7 +11,7 @@
 )
 
 
-<font size=7><div align='center' >  [[🌐 Homepage](https://vcr-bench.vercel.app/)][[📖 arXiv Paper]()] [[📊 Dataset](https://huggingface.co/datasets/VLM-Reasoning/VCR-Bench)]  [[🏆 Leaderboard](https://vcr-bench.vercel.app/#leaderboard)]  </div></font>
+<font size=7><div align='center' >  [[🌐 Homepage](https://vlm-reasoning.github.io/VCR-Bench/)][[📖 arXiv Paper]()] [[📊 Dataset](https://huggingface.co/datasets/VLM-Reasoning/VCR-Bench)]  [[🏆 Leaderboard](https://vlm-reasoning.github.io/VCR-Bench/#leaderboard)]  </div></font>
 
 ---
 
