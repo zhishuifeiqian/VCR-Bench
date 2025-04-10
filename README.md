@@ -46,10 +46,20 @@ python avg_cut_frames.py --input_json  meta_info_video.json --output_json meta_i
 📍 **Inference**:
 
 Our evaluation relies on the API call of GPT4o. You need to first replace the **get_output_wo_image** function in **eval_code/eval.py** with your API call function.
+
 Then run the following script to obtain the evaluation results:
 ```
 python eval_code/eval.py \
     --input input.json \          # Path to model inference results (JSON format) 
     --output output.json \        # Path to save GPT4o evaluation results
     --workers 50                  # Number of concurrent API call threads
+```
+
+Calculate the CoT score:
+```
+python eval_code/cau_total.py output.json
+```
+Calculate the accuracy:
+```
+python eval_code/cau_acc.py output.json
 ```
