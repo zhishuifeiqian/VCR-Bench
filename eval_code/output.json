@@ -1,0 +1,138 @@
+[
+    {
+        "id": 3,
+        "video_path": "video/videoEspresso/Law.Abiding.Citizen.2009__#01-14-42_01-15-38_label_G-0-0.mp4",
+        "duration": 56,
+        "dimension": "Video Plot Analysis",
+        "question": "Why didn't the Black man go to rescue the trapped woman after the explosion?A. He and the woman are in a hostile relationship.\nB. He prioritized rescuing another woman.\nC. Another man rescued the woman.\nD. An explosion occurred again at the scene.\n",
+        "multiple-choice": true,
+        "choices": {
+            "A": "He and the woman are in a hostile relationship.",
+            "B": "He prioritized rescuing another woman.",
+            "C": "Another man rescued the woman.",
+            "D": "An explosion occurred again at the scene."
+        },
+        "answer": "D",
+        "reasoning": [
+            "1. 0:08-0:30, a series of explosions occurred in the parking lot, and a woman was trapped in the car by the raging fire.",
+            "2. 0:30-0:33, the Black man noticed the woman was trapped and stepped forward to prepare for rescue.",
+            "3. From 0:33 to 0:36, the location of the woman's vehicle exploded again. This prevented the rescue attempt by the black man and left the woman's fate uncertain.",
+            "4. Therefore, the Black man attempted to rescue the woman after the explosion but was pushed back by another explosion."
+        ],
+        "response": "D. An explosion occurred again at the scene.",
+        "extract_answer": "D",
+        "answer_scoring": "1",
+        "recall_eval": "```json\n[\n  {\n    \"step\": \"1. 0:08-0:30, a series of explosions occurred in the parking lot, and a woman was trapped in the car by the raging fire.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Unmatched\"\n  },\n  {\n    \"step\": \"2. 0:30-0:33, the Black man noticed the woman was trapped and stepped forward to prepare for rescue.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Unmatched\"\n  },\n  {\n    \"step\": \"3. From 0:33 to 0:36, the location of the woman's vehicle exploded again. This prevented the rescue attempt by the black man and left the woman's fate uncertain.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Matched\"\n  },\n  {\n    \"step\": \"4. Therefore, the Black man attempted to rescue the woman after the explosion but was pushed back by another explosion.\",\n    \"step_type\": \"Logical Inference Steps\",\n    \"judgment\": \"Matched\"\n  }\n]\n```",
+        "Video_recall": 0.3333333333333333,
+        "logic_recall": 1.0,
+        "background_recall": "",
+        "overall_recall": 0.5,
+        "precision_eval": "```json\n[\n  {\n    \"step\": \"D. An explosion occurred again at the scene.\",\n    \"step_type\": \"Logical Inference Steps\",\n    \"reasons_for_judgment\": \"The solution step directly matches the ground truth information, which states that from 0:33 to 0:36, the location of the woman's vehicle exploded again, preventing the rescue attempt by the Black man.\",\n    \"judgment\": \"Matched\"\n  }\n]\n```",
+        "Video_precision": "",
+        "logic_precision": 1.0,
+        "background_precision": "",
+        "overall_precision": 1.0,
+        "efficiency": 1.0
+    },
+    {
+        "id": 0,
+        "video_path": "video/videoEspresso/Kill.Bill.Vol.1.2003__#0-05-55_0-08-54_label_B1-0-0.mp4",
+        "duration": 179,
+        "dimension": "Temporal Spatial Reasoning",
+        "question": "In which room does the second fight in the video take place?",
+        "multiple-choice": false,
+        "choices": {
+            "A": "",
+            "B": "",
+            "C": "",
+            "D": ""
+        },
+        "answer": "Kitchen",
+        "reasoning": [
+            "1. 0:07-0:55, two women engage in a physical altercation in a room with blue walls. From the surrounding sofas and tables, it can be determined that this is the living room, which is the first room where the fight occurs.",
+            "2. 0:55-1:02, two women entered the kitchen and continued fighting, which is the second room where the fight occurred."
+        ],
+        "response": "The second fight takes place in a kitchen.",
+        "extract_answer": "The second fight takes place in a kitchen.",
+        "answer_scoring": "1",
+        "recall_eval": "```json\n[\n  {\n    \"step\": \"1. 0:07-0:55, two women engage in a physical altercation in a room with blue walls. From the surrounding sofas and tables, it can be determined that this is the living room, which is the first room where the fight occurs.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Unmatched\"\n  },\n  {\n    \"step\": \"2. 0:55-1:02, two women entered the kitchen and continued fighting, which is the second room where the fight occurred.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Matched\"\n  }\n]\n```",
+        "Video_recall": 0.5,
+        "logic_recall": "",
+        "background_recall": "",
+        "overall_recall": 0.5,
+        "precision_eval": "```json\n[\n  {\n    \"step\": \"The second fight takes place in a kitchen.\",\n    \"step_type\": \"Logical Inference Steps\",\n    \"reasons_for_judgment\": \"The step correctly identifies the location of the second fight as the kitchen, which matches the ground truth information stating that the second fight occurs in the kitchen between 0:55-1:02.\",\n    \"judgment\": \"Matched\"\n  }\n]\n```",
+        "Video_precision": "",
+        "logic_precision": 1.0,
+        "background_precision": "",
+        "overall_precision": 1.0,
+        "efficiency": 1.0
+    },
+    {
+        "id": 1,
+        "video_path": "video/videoEspresso/Kill.Bill.Vol.1.2003__#0-05-55_0-08-54_label_B1-0-0.mp4",
+        "duration": 179,
+        "dimension": "Temporal Spatial Reasoning",
+        "question": "In which room does the third fight in the video take place?",
+        "multiple-choice": false,
+        "choices": {
+            "A": "",
+            "B": "",
+            "C": "",
+            "D": ""
+        },
+        "answer": "Living room",
+        "reasoning": [
+            "1. 0:07-0:55, two women engage in a physical altercation in a room with blue walls. From the surrounding sofas and tables, it can be determined that this is the living room, which is the first room where the fight occurs.",
+            "2. Between 2:55 and 1:02, the two women entered the kitchen and continued to fight. This was the second room where the fight took place.",
+            "3. 1:02-1:55, the two returned to the living room to fight again, and by this time the living room was already in a mess. This is the third room where the fight took place."
+        ],
+        "response": "The third fight takes place in a room with blue walls and a fireplace.",
+        "extract_answer": "a room with blue walls and a fireplace",
+        "answer_scoring": "0",
+        "recall_eval": "```json\n[\n  {\n    \"step\": \"1. 0:07-0:55, two women engage in a physical altercation in a room with blue walls. From the surrounding sofas and tables, it can be determined that this is the living room, which is the first room where the fight occurs.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Matched\"\n  },\n  {\n    \"step\": \"2. Between 2:55 and 1:02, the two women entered the kitchen and continued to fight. This was the second room where the fight took place.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Unmatched\"\n  },\n  {\n    \"step\": \"3. 1:02-1:55, the two returned to the living room to fight again, and by this time the living room was already in a mess. This is the third room where the fight took place.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Matched\"\n  }\n]\n```",
+        "Video_recall": 0.6666666666666666,
+        "logic_recall": "",
+        "background_recall": "",
+        "overall_recall": 0.6666666666666666,
+        "precision_eval": "```json\n[\n  {\n    \"step\": \"The third fight takes place in a room with blue walls and a fireplace.\",\n    \"step_type\": \"Logical Inference Steps\",\n    \"reasons_for_judgment\": \"The ground truth specifies that the third fight occurs in the living room, which has blue walls. However, there is no mention of a fireplace in the ground truth. The conclusion partially matches the ground truth but includes an unsupported detail (fireplace).\",\n    \"judgment\": \"Wrong\"\n  }\n]\n```",
+        "Video_precision": "",
+        "logic_precision": 0.0,
+        "background_precision": "",
+        "overall_precision": 0.0,
+        "efficiency": 1.0
+    },
+    {
+        "id": 2,
+        "video_path": "video/videoEspresso/Kill.Bill.Vol.2.2004__#0-44-18_0-49-18_label_A.mp4",
+        "duration": 300,
+        "dimension": "Temporal Spatial Reasoning",
+        "question": "Based on the changes in the scenes within the video, what is the trend of vertical height variation from the beginning of the video to the point where the woman finally reaches the temple courtyard?",
+        "multiple-choice": false,
+        "choices": {
+            "A": "",
+            "B": "",
+            "C": "",
+            "D": ""
+        },
+        "answer": "Continued rise",
+        "reasoning": [
+            "1. 0:00-1:30, a woman and a man are standing on a seemingly flat forest path, with trees and vehicles in the background, initially judged to be relatively low terrain.",
+            "2. 1:30-5:00, the camera follows the woman as she begins to climb the stairs, which extend upwards, and the surrounding environment also changes to a mountain forest, indicating that the terrain is gradually rising.",
+            "3. Based on the above scene changes, it can be determined that the trend of vertical height changes in the video scene is continuously rising."
+        ],
+        "response": "The trend of vertical height variation from the beginning to the point where the woman reaches the temple courtyard is an increase.",
+        "extract_answer": "an increase",
+        "answer_scoring": "1",
+        "recall_eval": "```json\n[\n  {\n    \"step\": \"1. 0:00-1:30, a woman and a man are standing on a seemingly flat forest path, with trees and vehicles in the background, initially judged to be relatively low terrain.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Unmatched\"\n  },\n  {\n    \"step\": \"2. 1:30-5:00, the camera follows the woman as she begins to climb the stairs, which extend upwards, and the surrounding environment also changes to a mountain forest, indicating that the terrain is gradually rising.\",\n    \"step_type\": \"Video Description Steps\",\n    \"judgment\": \"Unmatched\"\n  },\n  {\n    \"step\": \"3. Based on the above scene changes, it can be determined that the trend of vertical height changes in the video scene is continuously rising.\",\n    \"step_type\": \"Logical Inference Steps\",\n    \"judgment\": \"Matched\"\n  }\n]\n```",
+        "Video_recall": 0.0,
+        "logic_recall": 1.0,
+        "background_recall": "",
+        "overall_recall": 0.3333333333333333,
+        "precision_eval": "```json\n[\n  {\n    \"step\": \"The video begins with a woman and a man standing on a seemingly flat forest path, with trees and vehicles in the background.\",\n    \"step_type\": \"Video Description Steps\",\n    \"reasons_for_judgment\": \"This step matches the ground truth description for the time range 0:00-1:30, which states that the terrain is relatively low and flat.\",\n    \"judgment\": \"Matched\"\n  },\n  {\n    \"step\": \"The camera follows the woman as she begins to climb the stairs, which extend upwards, and the surrounding environment changes to a mountain forest.\",\n    \"step_type\": \"Video Description Steps\",\n    \"reasons_for_judgment\": \"This step matches the ground truth description for the time range 1:30-5:00, which indicates that the terrain is gradually rising.\",\n    \"judgment\": \"Matched\"\n  },\n  {\n    \"step\": \"Based on the scene changes, the trend of vertical height variation from the beginning to the point where the woman reaches the temple courtyard is an increase.\",\n    \"step_type\": \"Logical Inference Steps\",\n    \"reasons_for_judgment\": \"This step matches the ground truth conclusion that the trend of vertical height changes in the video scene is continuously rising.\",\n    \"judgment\": \"Matched\"\n  }\n]\n```",
+        "Video_precision": 1.0,
+        "logic_precision": 1.0,
+        "background_precision": "",
+        "overall_precision": 1.0,
+        "efficiency": 1.0
+    }
+]
