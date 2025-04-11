@@ -20,7 +20,7 @@
 
 ---
 
-## 👀 Introduce V2P-Bench
+## 👀 Introduce VCR-Bench
 
 <p align="center">
     <img src="./figs/data.png" width="100%" height="100%">
