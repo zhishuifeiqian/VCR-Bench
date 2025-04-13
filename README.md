@@ -73,5 +73,10 @@ python eval_code/cau_acc.py output.json
 
 If you find our work helpful for your research, please consider giving a star ⭐ and citation 📝
 ```bibtex
-
+@article{qi2025vcr,
+  title={VCR-Bench: A Comprehensive Evaluation Framework for Video Chain-of-Thought Reasoning},
+  author={Qi, Yukun and Zhao, Yiming and Zeng, Yu and Bao, Xikun and Huang, Wenxuan and Chen, Lin and Chen, Zehui and Zhao, Jie and Qi, Zhongang and Zhao, Feng},
+  journal={arXiv preprint arXiv:2504.07956},
+  year={2025}
+}
 ```
