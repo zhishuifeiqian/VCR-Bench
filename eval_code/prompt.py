@@ -1,52 +1,3 @@
-translate_prompt = """Please translate the following Chinese fields into English without changing any semantics, adding or deleting any content.
-{content}
-"""
-
-
-Recall_Evaluation_Prompt_old = """You are an expert system for verifying solutions to video-based problems. Your task is to match the ground truth middle steps with the provided solution.
-
-INPUT FORMAT:
-1. Problem: The original question/task
-2. A Solution of a model
-3. Ground Truth: Essential steps required for a correct answer
-
-MATCHING PROCESS:
-
-You need to match each ground truth middle step with the solution:
-
-Match Criteria:
-- The middle step should exactly match in the content or is directly entailed by a certain content in the solution
-- All the details must be matched, including the specific value and content
-- You should judge all the middle steps for whethere there is a match in the solution
-
-OUTPUT FORMAT:
-JSON array of judgments:
-[
-  {{
-    "step": ground truth middle step,
-    "judgment": "Matched" | "Unmatched",
-  }}
-]
-
-ADDITIONAL RULES:
-1. Only output the json array with no additional information.
-2. Judge each ground truth middle step in order without omitting any step.
-
-Here is the problem, answer, solution, and the ground truth middle steps:
-
-[Problem]
-{question}
-
-[Answer]
-{answer}
-
-[Solution]
-{solution}
-
-[Ground Truth Information]
-{gt_annotation}
-"""
-
 Recall_Evaluation_Prompt = """You are an expert system for verifying solutions to video-based problems. Your task is to match the ground truth middle steps with the provided solution.
 
 INPUT FORMAT:
@@ -108,88 +59,6 @@ Here is the problem, answer, solution, and the ground truth middle steps:
 {gt_annotation}
 """
 
-Precision_Evaluation_Prompt_old = """# Task Overview
-Given a solution with multiple reasoning steps for an video-based problem, reformat it into well-structured steps and evaluate their correctness.
-
-# Step 1: Reformatting the Solution
-Convert the unstructured solution into distinct reasoning steps while:
-- Preserving all original content and order
-- Not adding new interpretations
-- Not omitting any steps
-
-## Step Types
-1. Logical Inference Steps
-   - Contains exactly one logical deduction
-   - Must produce a new derived conclusion
-   - Cannot be just a summary or observation
-
-2. Video Description Steps
-   - Pure visual observations
-   - Only includes directly visible elements
-   - No inferences or assumptions
-   - Contains event time
-
-3. Background Review Steps: 
-   - Repetition or review of the problem
-   - Not directly related to solving the problem.
-
-## Step Requirements
-- Each step must be atomic (one conclusion per step)
-- No content duplication across steps
-- Initial analysis counts as background information
-- Final answer determination counts as logical inference
-
-# Step 2: Evaluating Correctness
-Evaluate each step against:
-
-## Ground Truth Matching
-For video descriptions:
-- Key elements must match ground truth descriptions
-
-For logical inferences:
-- Conclusion must EXACTLY match or be DIRECTLY entailed by ground truth
-
-## Reasonableness Check (if no direct match)
-Step must:
-- Premises must not contradict any ground truth or correct answer
-- Logic is valid
-- Conclusion must not contradict any ground truth 
-- Conclusion must support or be neutral to correct answer
-- Helpful in solving the problem, non-redundant steps
-
-## Judgement Categories
-- "Match": Aligns with ground truth
-- "Reasonable": Valid but not contain in ground truth
-- "Wrong": Invalid or contradictory or redundant
-- "N/A": For background information steps
-
-# Output Requirements
-1. The output format MUST be in valid JSON format without ANY other content.
-2. For highly repetitive patterns, output it as a single step.
-3. Output maximum 35 steps. Always include the final step that contains the answer.
-
-Here is the json output format:
-## Output Format
-[
-  {{
-    "step": "reformatted the solution step",
-    "step_type": "video event description|logical inference|background or knowledge information",
-    "reasons_for_judgment": "The reason for judging the matching result of the step in the solution based on Ground Truth Information. Sufficient evidence needs to be found in Ground Truth Information to determine the correctness of the reformatted the solution step. The video event description time error is no more than 3 seconds and is considered correct.",
-    "judgment": "Match|Reasonable|Wrong|N/A",
-  }}
-]
-
-Here is the problem, and the solution that needs to be reformatted to steps:
-
-[Problem]
-{question}
-
-[Solution]
-{solution}
-
-[Ground Truth Information]
-{gt_annotation}
-"""
 
 
 Precision_Evaluation_Prompt = """
@@ -277,12 +146,6 @@ Here is the problem, and the solution that needs to be reformatted to steps:
 
 [Ground Truth Information]
 {gt_annotation}
-"""
-
-Relevance_Rate_Evaluation_Prompt = """
-"""
-
-Reflection_Quality_Evaluation_Prompt = """
 """
 
 Answer_Extraction_Prompt_part1 = """You are an AI assistant who will help me to extract an answer of a question. You are provided with a question and a response, and you need to find the final answer of the question. 
