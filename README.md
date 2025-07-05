@@ -16,7 +16,7 @@
 ---
 
 ## 🔥 News
-* **`2025.07.05`** 🌟 **VCR-Bench** has been supported in the [**VLMEvalKit**(https://github.com/open-compass/VLMEvalKit)] repository
+* **`2025.07.05`** 🌟 **VCR-Bench** has been supported in the [**VLMEvalKit**](https://github.com/open-compass/VLMEvalKit) repository
 * **`2025.04.11`** 🌟 We have released **VCR-Bench**, a novel benchmark designed to comprehensively evaluate LVLMs' **V**ideo **C**hain-of-Thought **R**easoning capabilities
 
 ---
