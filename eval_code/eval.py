@@ -224,14 +224,12 @@ def recall(item):
 
     total_matched = (
         stats['Video Description Steps']['Matched'] +
-        stats['Logical Inference Steps']['Matched'] +
-        stats['Background Review Steps']['Matched']
+        stats['Logical Inference Steps']['Matched']
     )
 
     total_steps = (
         (stats['Video Description Steps']['Matched'] + stats['Video Description Steps']['Unmatched']) +
-        (stats['Logical Inference Steps']['Matched'] + stats['Logical Inference Steps']['Unmatched']) +
-        (stats['Background Review Steps']['Matched'] + stats['Background Review Steps']['Unmatched'])
+        (stats['Logical Inference Steps']['Matched'] + stats['Logical Inference Steps']['Unmatched'])
     )
 
     if total_steps == 0:
@@ -270,15 +268,13 @@ def precision(item):
 
     total_matched = (
         stats['Video Description Steps']['Matched'] +
-        stats['Logical Inference Steps']['Matched'] +
-        stats['Background Review Steps']['Matched']
+        stats['Logical Inference Steps']['Matched'] 
     )
 
 
     total_wrong = (
         stats['Video Description Steps']['Wrong'] +
-        stats['Logical Inference Steps']['Wrong'] +
-        stats['Background Review Steps']['Wrong']
+        stats['Logical Inference Steps']['Wrong'] 
     )
 
 
