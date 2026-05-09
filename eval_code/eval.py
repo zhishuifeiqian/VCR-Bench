@@ -13,10 +13,21 @@ from pathlib import Path
 import argparse
 
 
-def get_output_wo_image(prompt: str, max_tokens: int=2048):
-    """You need to replace this with your API call function."""
+# -----------------------------------------------------------------------------
+# Model API adapter
+# -----------------------------------------------------------------------------
+def get_output_wo_image(prompt: str, max_tokens: int = 2048):
+    """Call the text-only evaluation model and return its raw response.
+
+    Replace this stub with an OpenAI-compatible provider, a deployment endpoint,
+    or a local model used as the evaluator.
+    """
     pass
 
+
+# -----------------------------------------------------------------------------
+# File I/O helpers
+# -----------------------------------------------------------------------------
 def read_json(file_path):
     with open(file_path, 'r', encoding="utf-8") as file:
         data = json.load(file)
@@ -39,25 +50,28 @@ def save_jsonl(data, file_path):
             json.dump(item, file, ensure_ascii=False)
             file.write("\n")
 
-def calculate_time_iou(interval1, interval2):
+
+# -----------------------------------------------------------------------------
+# Response parsing and answer format validation
+# -----------------------------------------------------------------------------
+def extract_json_between_backticks(s):
+    """Extract and validate JSON content wrapped in a ```json code block."""
+    pattern = r'```json\n(.*?)```'
+    match = re.search(pattern, s, re.DOTALL)
+    if not match:
+        raise ValueError("No JSON content wrapped by ``` was found.")
+    json_str = match.group(1).strip()
     
-    start1, end1 = interval1
-    start2, end2 = interval2
     
-    intersection_start = max(start1, start2)
-    intersection_end = min(end1, end2)
-    intersection = max(0, intersection_end - intersection_start) 
-    
-    union_start = min(start1, start2)
-    union_end = max(end1, end2)
-    union = union_end - union_start
-    
-    if union == 0:
-        return 0  
-    iou = intersection / union
-    return iou
+    try:
+        json.loads(json_str)
+        return json_str
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Extracted content is not valid JSON: {e}")
+
 
 def is_valid_time_interval(interval_str):
+    """Check whether a string represents a numeric [start, end] interval."""
     
     try:
         interval = ast.literal_eval(interval_str)
@@ -69,6 +83,7 @@ def is_valid_time_interval(interval_str):
         return False
 
 def is_valid_space_interval(s):
+    """Check whether a string represents a bounding box [x1, y1, x2, y2]."""
     if not (s.startswith('[') and s.endswith(']')):
         return False
     content = s[1:-1]
@@ -88,37 +103,30 @@ def string_to_list(s):
     return [int(part.strip()) for part in content.split(',')]
 
 
-def extract_json_between_backticks(s):
-    pattern = r'```json\n(.*?)```'  
-    match = re.search(pattern, s, re.DOTALL)   
-    if not match:
-        raise ValueError("No JSON content wrapped by ``` was found.")
-    json_str = match.group(1).strip() 
+# -----------------------------------------------------------------------------
+# Metric calculation helpers
+# -----------------------------------------------------------------------------
+def calculate_time_iou(interval1, interval2):
+    """Calculate IoU for two temporal intervals."""
+    start1, end1 = interval1
+    start2, end2 = interval2
     
+    intersection_start = max(start1, start2)
+    intersection_end = min(end1, end2)
+    intersection = max(0, intersection_end - intersection_start)
     
-    try:
-        json.loads(json_str)
-        return json_str
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Extracted content is not valid JSON: {e}")
-
-
-def calculate_recall(json_object):
-
-    stats = {
-        "Video Description Steps": {"Matched": 0, "Unmatched": 0},
-        "Logical Inference Steps": {"Matched": 0, "Unmatched": 0},
-        "Background Review Steps": {"Matched": 0, "Unmatched": 0}
-    }
-    for item in json_object:
-        step_type = item["step_type"]
-        judgement = item["judgment"]
-        stats[step_type][judgement] += 1
+    union_start = min(start1, start2)
+    union_end = max(end1, end2)
+    union = union_end - union_start
     
-    return stats
+    if union == 0:
+        return 0
+    iou = intersection / union
+    return iou
 
 
 def calculate_space_iou(box1, box2):
+    """Calculate IoU for two spatial bounding boxes."""
     
     x1_1, y1_1, x2_1, y2_1 = box1
     x1_2, y1_2, x2_2, y2_2 = box2
@@ -143,7 +151,23 @@ def calculate_space_iou(box1, box2):
     return iou
 
 
+def calculate_recall(json_object):
+    """Aggregate step-level recall judgments by reasoning step type."""
+    stats = {
+        "Video Description Steps": {"Matched": 0, "Unmatched": 0},
+        "Logical Inference Steps": {"Matched": 0, "Unmatched": 0},
+        "Background Review Steps": {"Matched": 0, "Unmatched": 0}
+    }
+    for item in json_object:
+        step_type = item["step_type"]
+        judgement = item["judgment"]
+        stats[step_type][judgement] += 1
+
+    return stats
+
+
 def calculate_precision(json_object):
+    """Aggregate step-level precision judgments by reasoning step type."""
     stats = {
         "Video Description Steps": {"Matched": 0, "Wrong": 0, "Redundant": 0},
         "Logical Inference Steps": {"Matched": 0, "Wrong": 0, "Redundant": 0},
@@ -156,14 +180,18 @@ def calculate_precision(json_object):
     
     return stats
 
+# -----------------------------------------------------------------------------
+# Evaluation stages for a single sample
+# -----------------------------------------------------------------------------
 def extract_answer(item):
+    """Extract a concise answer from a model response before scoring."""
     processed_item = copy.deepcopy(item)
     prompt_new = Answer_Extraction_Prompt_part1 + Answer_Extraction_Prompt_part2.format(question=item['question'], response=item['response'])
     processed_item['extract_answer'] = get_output_wo_image(prompt=prompt_new)
     return processed_item
 
 def match_answer(item):
-    
+    """Score extracted answers with rule-based matching when possible, otherwise use the judge model."""
     processed_item = copy.deepcopy(item)
     try:
         if is_valid_time_interval(item.get('answer')) and is_valid_time_interval(item.get('extract_answer')):
@@ -198,9 +226,11 @@ def match_answer(item):
     return processed_item
 
 def recall(item):
+    """Evaluate whether the response covers ground-truth reasoning steps."""
     processed_item = copy.deepcopy(item)
-    prompt_new =Recall_Evaluation_Prompt.format(question=item['question'], answer=item['answer'], solution=item['response'], gt_annotation=item['reasoning'])
+    prompt_new = Recall_Evaluation_Prompt.format(question=item['question'], answer=item['answer'], solution=item['response'], gt_annotation=item['reasoning'])
     processed_item['recall_eval'] = get_output_wo_image(prompt=prompt_new)
+    # LLM outputs can occasionally miss the requested JSON block; retry until a parsable judgment is returned.
     while True:
         try:
             json_object = json.loads(extract_json_between_backticks(processed_item['recall_eval']))
@@ -242,9 +272,11 @@ def recall(item):
     return processed_item
 
 def precision(item):
+    """Evaluate whether the response contains correct and non-redundant reasoning steps."""
     processed_item = copy.deepcopy(item)
-    prompt_new =Precision_Evaluation_Prompt.format(question=item['question'], solution=item['response'], gt_annotation=item['reasoning'])
+    prompt_new = Precision_Evaluation_Prompt.format(question=item['question'], solution=item['response'], gt_annotation=item['reasoning'])
     processed_item['precision_eval'] = get_output_wo_image(prompt=prompt_new)
+    # The downstream aggregation expects structured JSON judgments from the evaluator model.
     while True:
         try:
             json_object = json.loads(extract_json_between_backticks(processed_item['precision_eval']))
@@ -300,8 +332,8 @@ def precision(item):
 
 
 def process_item(item):
+    """Run the full answer, recall, and precision evaluation pipeline for one item."""
     try:
-    
         item = extract_answer(item)
         item = match_answer(item)
         item = recall(item)
@@ -311,6 +343,9 @@ def process_item(item):
         print(f"An error occurred while processing the project: {e}")
         return None  
 
+# -----------------------------------------------------------------------------
+# Command-line entry point
+# -----------------------------------------------------------------------------
 def main():
     parser = argparse.ArgumentParser(description='Process evaluation data with multi-threading')
     parser.add_argument('-i', '--input', required=True, help='Input JSON file path')
@@ -319,7 +354,6 @@ def main():
     
     args = parser.parse_args()
 
-    # Validate paths
     input_path = Path(args.input)
     output_path = Path(args.output)
     
